@@ -136,6 +136,7 @@ nav a:hover, nav a.active {
 .hero-photo { padding-top: 0.5rem; }
 .photo-frame {
   width: 260px;
+  height: 320px;
   background: var(--paper-warm);
   border: 1px solid var(--rule);
   position: relative;
@@ -143,7 +144,8 @@ nav a:hover, nav a.active {
 }
 .photo-frame img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
   filter: grayscale(15%);
 }
