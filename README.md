@@ -1,6 +1,7 @@
-# Your Academic Site
+# Academic site — Youssef Ouazzani Chahdi
 
-A clean, static academic homepage. No build step, no dependencies — just HTML and CSS. Edit and push.
+A clean, static academic homepage with a persistent left sidebar (photo, identity, nav, links)
+and content on the right. No build step, no dependencies — just HTML and CSS. Edit and push.
 
 ## Files
 
@@ -9,96 +10,62 @@ A clean, static academic homepage. No build step, no dependencies — just HTML 
 ├── publications.html   # Full publication list
 ├── teaching.html       # Courses and supervised students
 ├── talks.html          # Talks and conferences
-├── notes.html          # Blog / informal writing
 ├── assets/
-│   ├── style.css       # All styling (one file, well-commented)
-│   └── photo.jpg       # Your portrait (replace this)
-└── papers/
-    └── cv.pdf          # Your CV (replace this)
+│   ├── style.css       # All styling (one file, commented, CSS variables)
+│   └── photo.jpg       # Portrait (shown cropped to a portrait frame)
+├── papers/
+│   └── cv.pdf          # CV
+└── googlee81a4979ba22bfc9.html   # Google Search Console verification
 ```
 
 ## Deploying to GitHub Pages
 
-Three steps. Your site will be live at `https://yourusername.github.io`.
+Your site will be live at `https://yourusername.github.io`.
 
-### 1. Create the repository
-
-On GitHub, create a new **public** repository named exactly `yourusername.github.io` — replace `yourusername` with your actual GitHub username. The name must match this pattern; that's how GitHub Pages recognizes it as your personal site and serves it from the root.
-
-Leave it empty — don't initialize with a README, since we already have files to push.
-
-### 2. Push the files
-
-In a terminal, from inside the `academic-site` folder:
+1. On GitHub, create a **public** repo named exactly `yourusername.github.io`.
+2. From inside this folder, push the files:
 
 ```bash
 git init
 git add .
-git commit -m "Initial site"
+git commit -m "Sidebar redesign"
 git branch -M main
 git remote add origin https://github.com/yourusername/yourusername.github.io.git
 git push -u origin main
 ```
 
-(Use `git@github.com:...` instead of `https://...` if you have SSH keys set up.)
+3. For `username.github.io` repos, Pages turns on automatically. To verify: **Settings → Pages**,
+   source **Deploy from a branch**, branch **main**, folder `/ (root)`. Live within 1–2 minutes.
 
-### 3. Enable Pages (usually automatic)
+Every push to `main` updates the site.
 
-For repos named `username.github.io`, GitHub Pages turns on automatically. To verify:
-
-- Go to your repo on GitHub.
-- Click **Settings → Pages** (in the left sidebar).
-- Under **Build and deployment**, source should be **Deploy from a branch**, branch **main**, folder `/ (root)`.
-
-Within 1–2 minutes, your site is live at `https://yourusername.github.io`.
-
-That's it. Every time you push a commit to `main`, the site updates automatically.
-
-### Later: adding a custom domain (optional)
-
-If you ever want a friendlier URL like `yourname.com` instead of `yourusername.github.io`, you can buy a domain (~$10–15/year from Namecheap, Cloudflare, Gandi, OVH, etc.) and point it at GitHub Pages in about 5 minutes. The github.io URL keeps working either way. You don't need this now — and many established academics never bother with it.
-
-## Editing the site
-
-Everything you need to personalize is in the HTML files. The placeholders to replace:
-
-- `Your Name` — used in titles, headers, footers
-- `Your Institution` — current affiliation
-- Email, Google Scholar, arXiv, GitHub links — in the contact row in `index.html`
-- Photo: drop a square-ish JPG at `assets/photo.jpg`
-- CV: drop your PDF at `papers/cv.pdf`
-
-The publication entries in `index.html` (selected) and `publications.html` (full list) are independent — keep the selected list short (3–5 papers) and the full list complete.
-
-For local preview before pushing:
+Local preview before pushing:
 ```bash
-cd academic-site
 python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-## Adding a new paper
+## Editing
 
-In `publications.html`, copy any `<li>` inside `.pub-list` and edit the fields:
+- **Photo** — replace `assets/photo.jpg`. It's displayed in a 4:5 portrait frame. If your face
+  ends up off-centre, tweak `object-position` in `.photo img` (in `assets/style.css`).
+- **Contact / Scholar links** — in the `.contact` block near the top of each HTML file.
+- **CV** — replace `papers/cv.pdf`.
+- **Adding a paper** — in `publications.html`, copy any `<li>` inside `.pub-list` and edit the
+  title, authors, and venue. The `value="N"` attribute sets the printed number.
 
-```html
-<li>
-  <span class="pub-title">Title of the paper.</span>
-  <span class="pub-authors">With Coauthor.</span>
-  <span class="pub-venue"><em>Venue</em>, 2026.</span>
-  <span class="pub-links">
-    <a href="...">arXiv</a> · <a href="...">PDF</a>
-  </span>
-</li>
-```
+## Retheming
 
-The numbering is automatic (CSS counters).
+Everything lives in `:root` at the top of `assets/style.css`:
 
-## Why this stack?
+- `--accent` — the oxblood accent (links, active nav, section labels). Swap this one value to
+  recolour the whole site.
+- `--sidebar-w` / `--content-w` — layout widths.
+- Fonts: **Inter** (body/UI) + **JetBrains Mono** (dates, labels), loaded from Google Fonts.
+  Swap the `<link>` in each file's `<head>` and the `--sans` / `--mono` variables to change them.
 
-- **No Jekyll, no Hugo, no build step.** Faster to edit, no toolchain to break.
-- **No JavaScript framework.** Loads instantly. Will still work in ten years.
-- **Two Google Fonts only** (EB Garamond + JetBrains Mono). Removable if you prefer system fonts.
-- **One CSS file**, ~250 lines, fully commented and using CSS variables — easy to retheme.
+## Why this stack
 
-If you later want a blog with markdown posts, the cleanest upgrade is to add Hugo or 11ty without changing the design. But the current setup is honestly fine forever for a research site.
+- No Jekyll, no Hugo, no build step. Faster to edit, nothing to break.
+- No JavaScript framework. Loads instantly, will still work in ten years.
+- Two Google fonts. One ~350-line CSS file, fully commented, driven by CSS variables.
